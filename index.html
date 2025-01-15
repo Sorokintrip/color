@@ -27,7 +27,7 @@
     </style>
 </head>
 <body>
-    <div class="hidden-text">хуй</div>
+    <div class="hidden-text">54.202020, 20.545454</div>
 
     <script>
         const hiddenText = document.querySelector('.hidden-text');
@@ -46,8 +46,8 @@
         // Слушаем событие изменения ориентации экрана
         window.addEventListener('orientationchange', checkOrientation);
 
-        // Инициализация состояния при первой загрузке
-        checkOrientation();
+        // Инициализация состояния при первой загрузке (текст изначально скрыт)
+        hiddenText.classList.remove('visible');
     </script>
 </body>
 </html>
