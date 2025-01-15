@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rotate to Reveal</title>
+    <title>Rotate to Reveal Text</title>
     <style>
         body {
             margin: 0;
@@ -17,8 +17,8 @@
 
         .hidden-text {
             font-size: 24px;
-            color: transparent; /* Текст изначально прозрачный */
-            transition: color 0.5s; /* Плавное проявление текста */
+            color: transparent; /* Изначально текст прозрачный */
+            transition: color 0.5s; /* Плавное изменение текста */
         }
 
         .hidden-text.visible {
@@ -32,24 +32,22 @@
     <script>
         const hiddenText = document.querySelector('.hidden-text');
 
-        // Проверка ориентации устройства
-        function checkOrientation(event) {
-            const { alpha, beta, gamma } = event; // Получение углов устройства
-
-            // Проверка переворота на 180 градусов
-            if ((beta > 170 && beta < 190) || (beta < -170 && beta > -190)) {
+        // Функция для обработки изменения ориентации экрана
+        function checkOrientation() {
+            if (window.innerWidth > window.innerHeight) {
+                // Если экран находится в горизонтальной ориентации
                 hiddenText.classList.add('visible'); // Показать текст
             } else {
+                // Если экран в вертикальной ориентации
                 hiddenText.classList.remove('visible'); // Скрыть текст
             }
         }
 
-        // Проверяем, поддерживает ли устройство события DeviceOrientationEvent
-        if (window.DeviceOrientationEvent) {
-            window.addEventListener('deviceorientation', checkOrientation);
-        } else {
-            alert('Ваше устройство не поддерживает определение ориентации.');
-        }
+        // Обработчик события для изменения ориентации экрана
+        window.addEventListener('resize', checkOrientation);
+
+        // Инициализация состояния при первой загрузке
+        checkOrientation();
     </script>
 </body>
 </html>
