@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scratch to Reveal Text</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: rgba(255, 255, 255, 0.5); /* Прозрачный фон */
+            font-family: Arial, sans-serif;
+        }
+
+        .text {
+            font-size: 24px;
+            color: transparent; /* Изначально текст прозрачный */
+            user-select: none; /* Запрет выделения текста */
+            transition: color 0.2s; /* Плавное изменение цвета */
+        }
+
+        .text[data-level="1"] {
+            color: lightgray;
+        }
+
+        .text[data-level="2"] {
+            color: gray;
+        }
+
+        .text[data-level="3"] {
+            color: black;
+        }
+
+        .text[data-level="4"] {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="text" data-level="0">54.202020, 20.545454</div>
+
+    <script>
+        const textElement = document.querySelector('.text');
+
+        let currentLevel = 0;
+        const maxLevel = 4;
+
+        function increaseRevealLevel(event) {
+            if (currentLevel < maxLevel) {
+                currentLevel++;
+                textElement.setAttribute('data-level', currentLevel);
+            }
+        }
+
+        // События для трогания текста
+        textElement.addEventListener('mousemove', increaseRevealLevel); // Для мыши
+        textElement.addEventListener('touchmove', increaseRevealLevel); // Для сенсора
+    </script>
+</body>
+</html>
