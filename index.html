@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flip to Reveal Text</title>
+    <title>Rotate to Reveal</title>
     <style>
         body {
             margin: 0;
@@ -11,13 +11,13 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: transparent; /* Прозрачный фон страницы */
+            background-color: transparent; /* Прозрачный фон */
             font-family: Arial, sans-serif;
         }
 
         .hidden-text {
             font-size: 24px;
-            color: transparent; /* Изначально текст прозрачный */
+            color: transparent; /* Текст изначально прозрачный */
             transition: color 0.5s; /* Плавное проявление текста */
         }
 
@@ -27,28 +27,26 @@
     </style>
 </head>
 <body>
-    <div class="hidden-text">Секретный текст раскрыт!</div>
+    <div class="hidden-text">54.202020, 20.545454</div>
 
     <script>
         const hiddenText = document.querySelector('.hidden-text');
-        let timeout;
 
+        // Проверка ориентации устройства
+        function checkOrientation(event) {
+            const { alpha, beta, gamma } = event; // Получение углов устройства
+
+            // Проверка переворота на 180 градусов
+            if ((beta > 170 && beta < 190) || (beta < -170 && beta > -190)) {
+                hiddenText.classList.add('visible'); // Показать текст
+            } else {
+                hiddenText.classList.remove('visible'); // Скрыть текст
+            }
+        }
+
+        // Проверяем, поддерживает ли устройство события DeviceOrientationEvent
         if (window.DeviceOrientationEvent) {
-            window.addEventListener('deviceorientation', (event) => {
-                const { beta } = event; // Угол наклона устройства
-
-                // Если устройство лежит экраном вниз (угол ~180 градусов)
-                if (beta > 160 && beta < 200) {
-                    if (!timeout) {
-                        timeout = setTimeout(() => {
-                            hiddenText.classList.add('visible');
-                        }, 2000); // Задержка в 2 секунды
-                    }
-                } else {
-                    clearTimeout(timeout);
-                    timeout = null;
-                }
-            });
+            window.addEventListener('deviceorientation', checkOrientation);
         } else {
             alert('Ваше устройство не поддерживает определение ориентации.');
         }
