@@ -43,11 +43,11 @@
             }
         }
 
-        // Инициализация события при загрузке страницы
-        window.addEventListener('resize', checkOrientation);
+        // Слушаем событие изменения ориентации экрана
+        window.addEventListener('orientationchange', checkOrientation);
 
-        // Вначале скрываем текст
-        hiddenText.classList.remove('visible');
+        // Инициализация состояния при первой загрузке
+        checkOrientation();
     </script>
 </body>
 </html>
